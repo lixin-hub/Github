@@ -9,7 +9,6 @@ public class DrawThread extends Thread
 		this.mySurfaceView = mySurfaceView;
 	}
 	
-
 	@Override
 	public void run()
 	{
