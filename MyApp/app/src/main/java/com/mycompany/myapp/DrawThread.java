@@ -21,7 +21,6 @@ public class DrawThread extends Thread
 		}
 		catch (InterruptedException e)
 		{}
-
 		super.run();
 	}
 	
