@@ -33,9 +33,6 @@ public class MainActivity extends Activity
 		public void onSensorChanged(SensorEvent p1)
 		{
 		 event=p1.values;
-//			text.setText("x"+event[0]+"\n"+
-//						 "y"+event[1]+"\n"+
-//			             "z"+event[2]+"\n");
 				 }
 
 		@Override
