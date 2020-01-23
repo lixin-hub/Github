@@ -10,10 +10,12 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 	Paint paint;
 	Canvas canvas;
 	boolean flag=false;
-	int sleepTime=100;
+	int sleepTime=1;
 	SurfaceHolder holder;
-	float center_x=1000,center_y=500,r=300;
-	float m_center_x,m_center_y,m_r=100;
+	float center_x,center_y,r=300;
+    float m_center_x,m_center_y,m_r=100;
+
+	private static final float RATE =20f;
 	//构造器
 	public MySurfaceView(MainActivity mainActivity)
 	{
@@ -22,22 +24,31 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 		holder.addCallback(this);
 		paint=new Paint();
 		paint.setAntiAlias(true);
-		drawThread=new DrawThread(this);
+	
 		this.mainActivity = mainActivity;
-	}
+		if(mainActivity.screenWidth/2!=0){
+		center_x=mainActivity.screenWidth/2;
+		center_y=mainActivity.screenHeight/2;}
+		drawThread=new DrawThread(this);
+		}
 
 	
 	public void onDraw(){
 		canvas=holder.lockCanvas();
 		if(canvas!=null){
 			canvas.drawColor(Color.WHITE);
+			paint.setColor(Color.BLACK);
+			paint.setTextSize(40);
+			canvas.drawPoint(center_x,center_y,paint);
 			paint.setStyle(Paint.Style.STROKE);
 			paint.setColor(Color.BLUE);
 			canvas.drawCircle(center_x,center_y,r,paint);
 		    paint.setStyle(Paint.Style.FILL);
 			paint.setColor(Color.GREEN);
 			m_center_x=mainActivity.event[0];
-			canvas.drawCircle(m_center_x,m_center_y,m_r,paint);
+			m_center_y=mainActivity.event[1];
+			canvas.drawText("x="+m_center_x+"   y="+m_center_y,100,100,paint);
+			canvas.drawCircle(center_x+m_center_x*RATE,center_y-m_center_y*RATE,m_r,paint);
 		holder.unlockCanvasAndPost(canvas);
 	}
 	

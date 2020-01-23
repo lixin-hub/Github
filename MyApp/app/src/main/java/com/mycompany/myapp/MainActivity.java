@@ -10,7 +10,9 @@ import android.content.pm.*;
 
 public class MainActivity extends Activity 
 {
-	TextView text;
+
+	int screenWidth; 
+	int screenHeight;
 	SensorManager manager;
 	Sensor sensor;
 	float[] event;
@@ -20,11 +22,16 @@ public class MainActivity extends Activity
         super.onCreate(savedInstanceState);
     requestWindowFeature(Window.FEATURE_NO_TITLE);
 	getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		//setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		WindowManager windowManager = getWindowManager(); 
+
+		Display display = windowManager.getDefaultDisplay(); 
+		screenWidth = display.getWidth(); 
+		screenHeight = display.getHeight();
 		setContentView(new MySurfaceView(this));
-		text=findViewById(R.id.mainTextView);
+	
 		manager= (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		sensor=manager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+		sensor=manager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 		
 		}
 	SensorEventListener events=new SensorEventListener(){
@@ -47,10 +54,9 @@ public class MainActivity extends Activity
 	{
 		// TODO: Implement this method
 		super.onResume();
-		manager.registerListener(events,sensor,SensorManager.SENSOR_DELAY_NORMAL);
-		
+		manager.registerListener(events,sensor,SensorManager.SENSOR_DELAY_GAME);
+		setContentView(new MySurfaceView(this));
 		
 	}
-		
 		
 }
