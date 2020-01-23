@@ -21,7 +21,7 @@ public class MySurfaceView extends SurfaceView implements SurfaceHolder.Callback
 		holder=this.getHolder();
 		holder.addCallback(this);
 		paint=new Paint();
-		paint.setAntiAlias(true);
+
 		drawThread=new DrawThread(this);
 		this.mainActivity = mainActivity;
 	}
